@@ -32,7 +32,7 @@ def get_title():
     return title
 
 
-@app.route("/events", methods=["GET"])
+@app.route("/events", methods=["GET"] )
 def list_events():
     return jsonify([event.to_dict() for event in events])
 
