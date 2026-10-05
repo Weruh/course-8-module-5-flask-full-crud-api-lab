@@ -51,7 +51,34 @@ pipenv shell
 Or with pip:
 
 ```bash
-pip install flask
+python -m venv .venv
+source .venv/bin/activate
+pip install flask pytest
+```
+
+## Completed API
+
+| Method | Route | Result |
+| --- | --- | --- |
+| GET | `/events` | List all events (200) |
+| GET | `/events/<id>` | Read one event (200) |
+| POST | `/events` | Create an event (201) |
+| PATCH | `/events/<id>` | Update an event title (200) |
+| DELETE | `/events/<id>` | Delete an event (204, empty body) |
+
+POST and PATCH accept a JSON object such as `{"title": "Hackathon"}`.
+Missing, blank, or non-string titles and invalid JSON return a JSON error with
+status 400. Unknown event IDs return a JSON error with status 404. IDs are
+assigned by the server; additional input fields are ignored.
+
+Data is stored only in memory and resets when the process restarts. New IDs
+use the largest existing ID plus one (or 1 for an empty store), so deleted IDs
+may be reused. This lab does not provide persistent or multi-worker storage.
+
+Run the tests from the repository root with your environment activated:
+
+```bash
+python -m pytest -q
 ```
 
 ## Tasks
